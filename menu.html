@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant Menu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .menu-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .menu-images img {
+            border-radius: 10px;
+            width: 100%;     /* Take full width on small screens */
+            max-width: 300px; /* Optional: limit size on larger screens */
+            height: auto; 
+        }
+        .back-btn {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="restaurant-name">Menu</h1>
+    
+
+    <div class="menu-images" id="menu-container"></div>
+
+    <script>
+        // Get the restaurant name from URL
+        const params = new URLSearchParams(window.location.search);
+        const restaurant = params.get('restaurant');
+
+        // Store menu images for each restaurant
+        const menus = {
+            "mahis": [
+                "menus/mahi.jpg"
+              
+            ],
+            "syeds":[
+                "menus/syeds.png"
+            ],
+            "al-joint":[
+                "menus/al-joint.png"
+            ],
+            "ajwa":[
+                "menus/Ajwa/ajwa1.png",
+                "menus/Ajwa/ajwa2.png"
+            ],
+            "lotus":[
+                "menus/lotus/lotus1.png",
+                "menus/lotus/lotus2.png"
+            ],
+            "mandi-9r":[
+                "menus/mandi9r.png"
+            ],
+           
+            "taj-darbar":[
+                "menus/Taj-darbar.png"
+            ],
+            "koya":[
+                "menus/koya/koya1.png",
+                "menus/koya/koya2.png",
+                "menus/koya/koya3.png"
+            ],
+            "icemagic":[
+                "menus/icemagic.png"
+            ],
+            "forza":[
+                "menus/forza1.png",
+                "menus/forza2.png"
+            ],
+            "amay":[
+                "menus/amay.png"
+            ],
+            "kfc":[
+                "menus/kfc1.png",
+                "menus/kfc2.png"
+            ],
+            "dominos":[
+                    "menus/dominos.png"
+            ],
+            "foresta":[
+                "menus/foresta/foresta1.png",
+                "menus/foresta/foresta2.png",
+                "menus/foresta/foresta3.png"
+            ],
+            "pistahouse":[
+                "menus/pistahouse1.png",
+                "menus/pistahouse2.png"
+            ],
+            "dvr":[
+                "menus/dvr1.png",
+                "menus/dvr2.png"
+            ],
+            "elite":[
+                "menus/new elite/new-ellite1.png",
+                "menus/new elite/new-elite2.png"
+            ],
+            "paradise":[
+                "menus/paradise.png",
+            ],
+            "blue-moon": [
+                "menus/Bluemoon.jpeg"
+            ],
+            "SuryaDhaba":[
+                "menus/SuryaDhaba.jpeg"
+            ],
+            "arunodhaya":[
+                "menus/arunodhaya1.jpg",
+                "menus/arunodhaya2.jpg",
+                "menus/arunodhaya3.jpg"
+            ],
+            "knl":[
+                "menus/knl1.png",
+                "menus/kn12.png"
+            ],
+            "darshan":[
+                "menus/darshan.png",
+            ],
+
+            "rama":[
+                "menus/rama/rama1.png",
+                "menus/rama/rama2.png"
+            ],
+            "konda-reddy":[
+                        "menus/kondareddy.png"
+            ],
+            "food-international":[
+                "menus/foodInternational/fi1.png",
+                "menus/foodInternational/fi2.png"
+            ],
+            "hindusthan":[
+                "menus/hindusthan1.png",
+                "menus/hindusthan2.png"
+            ],
+            "madhu":[
+                "menus/madhu.png"
+            ],
+            "kumba":[
+                "menus/kumba.png"
+            ],
+            "athidhi":[
+                "menus/athidhi1.png",
+                "menus/athidhi2.png"
+            ],
+
+            "mehfil":[
+                "menus/mehfil.png"
+            ],
+            "shahi-akbar":[
+                "menus/shahi.png"
+            ],
+            "raja-villas":[
+                "menus/rajavillas/raja1.png",
+                "menus/rajavillas/raja2.png"
+            ],
+            "babai":[
+                "menus/babai.png"
+            ],
+            "mythri":[
+                "menus/mythri/mythri-1.jpeg",
+                "menus/mythri/mythri-2.jpeg",
+                "menus/mythri/mythri 3.jpeg"
+            ],
+            "pr-grand":[
+                "menus/pr-grand/pr1.png",
+                "menus/pr-grand/pr2.png"
+            ],
+            "lava":[
+                "menus/lava.png"
+            ],
+            "lucky":[
+                "menus/lucky.png"
+            ],
+            "lassi":[
+                "menus/lassi.avif"
+            ],
+            "sweet-symphony":[
+                "menus/brownie1.png",
+                "menus/brownie2.png"
+            ],
+            "rosfinity":[
+                "menus/rosfinity1.jpg",
+                "menus/ros2.jpg",
+                "menus/ros3.jpg"
+            ],
+            
+           
+        };
+
+        // Restaurant display names
+        const restaurantNames = {
+            "mahis": "Mahi's Delights",
+            "syeds":"Syed's Home Kitchen",
+            "blue-moon": "Blue Moon",
+            "al-joint": "The Joint Al-Mandi",
+            "ajwa":"Ajwa Exotica",
+            "lotus":"Malik Lotus Restaurant",
+            "mandi-9r": "Mandi-9R",
+            "taj-darbar":"Hotel Taj-Darbar",
+            "icemagic":"Cafe Ice Magic",
+            "forza": "Forza",
+            "amay":"Amay Bistro",
+            "kfc":"KFC",
+            "dominos":"Dominos",
+            "foresta":"Foresta Multi-Cuisine",
+            "pistahouse":"PistaHouse",
+            "koya":"Koya Fine-Dine",
+            "elite":"Hote New Elite",
+            "paradise":"Paradise Biryani",
+            "knl":"KNL Restaurant",
+            "darshan":"Darshan veg Restaurant",
+            "dvr":"DVR Restaurant",
+            "SuryaDhaba":"Sri Surya Dhaba",
+            "arunodhaya":"Arunodhaya Restaurant",
+            "rama":"Rama Hotel",
+            "konda-reddy":"KONDAREDDY HOTEL",
+            "hindusthan":"Hotel Hindusthan",
+            "madhu":"Madhu Grand",
+            "kumba":"Kumba Restaurant",
+            "mehfil":"MR.Mehfil",
+            "lava":"Lava Kushas Kitchen",
+            "food-international":"Hotel Food International",
+            "babai":"Babay-Bagara & Biryani",
+            "raja-villas": "Raja Vilas Restaurant",
+            "pr-grand":"PR Grand Multi Cuisine",
+            "lucky":"Lucky 9 Tadipatri Biryani",
+            "shahi-akbar":"Shahi Akbar Hotel",
+            "sweet-symphony": "Sweet Symphony",
+            "lassi":"Lassi Corner"
+
+            
+        };
+
+        // Set the page heading
+        document.getElementById("restaurant-name").textContent =
+            restaurantNames[restaurant] || "Menu";
+
+        // Load the correct menu images
+        const container = document.getElementById("menu-container");
+        if (menus[restaurant]) {
+            menus[restaurant].forEach(imgSrc => {
+                const img = document.createElement("img");
+                img.src = imgSrc;
+                container.appendChild(img);
+            });
+        } else {
+            container.innerHTML = "<p>No menu available for this restaurant.</p>";
+        }
+    </script>
+    <a href="index.html" class="back-btn">⬅ Back to Restaurants</a>
+
+</body>
+</html>
